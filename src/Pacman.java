@@ -3,12 +3,15 @@ import java.awt.event.*;
 
 public class Pacman {
     private int x, y;
+    private int previousX, previousY;
     private Direction direction = Direction.LEFT;
     private int score = 0;
 
     public Pacman(int x, int y) {
         this.x = x;
         this.y = y;
+        this.previousX = x;
+        this.previousY = y;
     }
 
     public void draw(Graphics g) {
@@ -17,13 +20,20 @@ public class Pacman {
     }
 
     public void move() {
+        previousX = x;
+        previousY = y;
+        
         switch (direction) {
             case LEFT: x -= 4; break;
             case RIGHT: x += 4; break;
             case UP: y -= 4; break;
             case DOWN: y += 4; break;
         }
-        // Aquí puedes agregar lógica para colisiones con el laberinto
+    }
+    
+    public void undoMove() {
+        x = previousX;
+        y = previousY;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -37,5 +47,17 @@ public class Pacman {
 
     public int getScore() {
         return score;
+    }
+    
+    public void incrementScore(int points) {
+        score += points;
+    }
+    
+    public int getX() {
+        return x;
+    }
+    
+    public int getY() {
+        return y;
     }
 }
