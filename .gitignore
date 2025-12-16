@@ -7,6 +7,9 @@ bin/
 *.war
 *.ear
 
+# Test files
+test/
+
 # IDE files
 .idea/
 *.iml
