@@ -14,6 +14,10 @@ public class Board extends JPanel implements ActionListener {
     private static final int BOARD_WIDTH = 20;
     private static final int BOARD_HEIGHT = 20;
     
+    // Configuración de juego
+    private static final int PELLET_SCORE = 10;
+    private static final int NUM_LEVELS = 3;
+    
     // Nivel actual y mapas de niveles
     private int currentLevel = 0;
     private int[][][] levelMaps;
@@ -33,7 +37,7 @@ public class Board extends JPanel implements ActionListener {
     }
     
     private void initializeLevels() {
-        levelMaps = new int[3][BOARD_HEIGHT][BOARD_WIDTH];
+        levelMaps = new int[NUM_LEVELS][BOARD_HEIGHT][BOARD_WIDTH];
         
         // Nivel 1 - Diseño simple con paredes exteriores y algunas paredes internas
         int[][] level1 = {
@@ -182,7 +186,7 @@ public class Board extends JPanel implements ActionListener {
         }
         
         // Verificar si se completó el nivel
-        if (pellets.isEmpty() && currentLevel < 2) {
+        if (pellets.isEmpty() && currentLevel < NUM_LEVELS - 1) {
             initializeLevel(currentLevel + 1);
         }
         
@@ -229,7 +233,7 @@ public class Board extends JPanel implements ActionListener {
         pellets.removeIf(pellet -> {
             int distance = Math.abs(pellet.x - pacmanX) + Math.abs(pellet.y - pacmanY);
             if (distance < BLOCK_SIZE) {
-                pacman.incrementScore(10);
+                pacman.incrementScore(PELLET_SCORE);
                 return true;
             }
             return false;
