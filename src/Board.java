@@ -231,8 +231,9 @@ public class Board extends JPanel implements ActionListener {
         
         // Revisar si Pacman está sobre un pellet
         pellets.removeIf(pellet -> {
-            int distance = Math.abs(pellet.x - pacmanX) + Math.abs(pellet.y - pacmanY);
-            if (distance < BLOCK_SIZE) {
+            boolean overlaps = Math.abs(pellet.x - pacmanX) < BLOCK_SIZE && 
+                              Math.abs(pellet.y - pacmanY) < BLOCK_SIZE;
+            if (overlaps) {
                 pacman.incrementScore(PELLET_SCORE);
                 return true;
             }
